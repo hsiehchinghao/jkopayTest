@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      span {
+        font-size: 12px;
+        display: block;
+      }
+      img {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" />
+    <span></span>
+    <img src="http://localhost:8088/images/testing3.webp" alt="" />
+
+    <script>
+      let input = document.querySelector("input");
+      let span = document.querySelector("span");
+      let img = document.querySelector("img");
+      input.addEventListener("change", (e) => {
+        console.log(e.target.files[0]);
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+
+          // 當文件讀取完成後觸發的事件
+          reader.onload = function (event) {
+            // event.target.result 包含了Base64編碼的圖片數據
+            const base64String = event.target.result;
+
+            // 顯示Base64編碼的圖片字符串或進行其他操作
+            console.log(base64String); // 在控制台輸出
+            span.innerText = base64String;
+            img.src = base64String;
+          };
+
+          // 讀取文件作為DataURL
+          reader.readAsDataURL(file);
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<!-- 
+
+{   greet(){....}
+    greet: function(){....},
+} -->
